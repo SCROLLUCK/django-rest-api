@@ -21,7 +21,7 @@ class EvaluationsAPIView(generics.ListCreateAPIView):
 		serializer_class = EvaluationSerializer
 
 		def get_queryset(self):
-				course_pk = self.kwargs.get('course_pk')
+				course_pk = self.kwargs.get('pk')
 				if course_pk:
 						return self.queryset.filter(course_id=course_pk)
 				return self.queryset.all()

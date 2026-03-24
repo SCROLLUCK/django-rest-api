@@ -17,6 +17,22 @@ class EvaluationSerializer(serializers.ModelSerializer):
 				'course',
 		)
 class CourseSerializer(serializers.ModelSerializer):
+  
+  #. 1 - Nested Relationship
+	evaluations = EvaluationSerializer(many=True, read_only=True)	
+  
+	#. 2 - Hyperlinked Related Field
+	# evaluations = serializers.HyperlinkedRelatedField(
+	# 	many=True,
+	# 	read_only=True,
+	# )
+	
+	#. 3 - Primary Key Related Field		
+	# evaluations = serializers.PrimaryKeyRelatedField(
+	# 	many=True,
+	# 	read_only=True
+	# )	
+	
 	class Meta:
 		model = Course
 		fields = (
@@ -25,5 +41,11 @@ class CourseSerializer(serializers.ModelSerializer):
 			'description',
 			'active',
 			'url',
+			'evaluations',
 			'updated_at',
 		)
+  
+		course = serializers.SlugRelatedField(
+			read_only=True,
+			slug_field='title',
+   )
